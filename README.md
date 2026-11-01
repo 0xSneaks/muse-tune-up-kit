@@ -46,3 +46,8 @@ without anyone else's personal data, projects, accounts, or secrets in it.
 
 Re-run the checklist monthly, or after any big change (new connectors,
 new skills, a lot of new memory). A tune-up is a habit, not a one-off.
+
+## Proof it works
+
+See `BEFORE-AFTER.md` — one real Muse's before/after scorecard from
+its own tune-up, chart included, with the audit evidence underneath.
