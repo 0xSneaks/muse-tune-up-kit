@@ -127,7 +127,7 @@ is the same A-083/A-184 pair as RC-1 and is not counted twice.
   a third-party hop (kept). A-164 side — dependency is still proven
   by enumeration, not assumed (kept). None dropped.
 
-## RC-7 — R-050 (A-145 vs A-145): operation end hands a continuing leg over; it does not close it
+## RC-7 — R-050 (A-145 vs A-145): operation end closes a continuing leg (owner ruling, 2026-11-12)
 
 - Setup: a public preview bucket created by an operation is still
   public and mutable when the operation ends (the deliverable
@@ -136,22 +136,33 @@ is the same A-083/A-184 pair as RC-1 and is not counted twice.
 - Old-rule outcome: the same atom also says the leg stays open "for
   as long as it is public" — both readings are in force, and the
   closure reading wins by being the last one the reporter reaches.
-- New-rule outcome (pair-map resolution; CURRENT-STATE §5 caveat):
-  closure requires the destination to be made immutable, made
-  private or destroyed. Operation end alone hands the leg over:
-  the report names the handover (who or what now owns
-  re-observation), and the leg remains CONTINUING.
-- Expected result: report = leg CONTINUING, handed over — never
-  CLOSED while the bucket is public and mutable.
-- Protections: the public mutable destination stays under an
-  explicit re-observation duty with a named owner (kept). The
-  closure-on-operation-end reading is the dropped element — it is
-  the one place in this set where the collapsed position REMOVES a
-  permission the source text appeared to grant, because that
-  permission is precisely the failure the chain exists to prevent.
-  FLAGGED: verification-core §5 as drafted by lane B2 still carries
-  the closure reading and does NOT pass this case. See PROOF
-  FLAG-1.
+- Pre-ruling draft outcome (pair-map resolution; this case as
+  originally written): closure requires the destination to be made
+  immutable, made private or destroyed. Operation end alone hands
+  the leg over: the report names the handover (who or what now
+  owns re-observation), and the leg remains CONTINUING. Expected
+  result was: report = leg CONTINUING, handed over — never CLOSED
+  while the bucket is public and mutable — and verification-core
+  §5, which carries the closure reading, was flagged as NOT
+  passing this case (PROOF FLAG-1).
+- Owner ruling (2026-11-12): "When it's done it's done." Operation
+  end CLOSES the leg. The pair-map hand-over resolution is
+  overruled; verification-core §5 as drafted by lane B2 (closure on
+  immutability, privacy, destruction, or operation end) stands
+  unchanged and now passes this case.
+- Expected result: report = leg CLOSED at operation end, even
+  while the bucket remains public and mutable. The re-observation
+  duty ends with the operation; a destination that must stay
+  watched beyond the operation has to be carried into a new
+  operation, or closed by immutability, privacy or destruction
+  before this one ends.
+- Protections: the at-most-24-hour re-observation duty and the
+  per-leg CONTINUING reporting govern for the whole life of the
+  operation (kept). The risk the hand-over resolution guarded
+  against — a public mutable destination outliving its watcher —
+  is, by the owner's ruling, accepted at operation end rather than
+  carried as a perpetual duty; that acceptance is recorded here,
+  not silently absorbed. See PROOF FLAG-1 (RESOLVED-BY-OWNER).
 
 ## RC-8 — R-052 (A-144 vs A-019): one named, scoped exception to the self-report bar
 

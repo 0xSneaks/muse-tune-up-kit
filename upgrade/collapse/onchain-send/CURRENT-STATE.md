@@ -304,6 +304,16 @@ duplicate key locks. Value for class identity uses the send-time
 value when available, else a staging price meeting the integrity
 standard.
 
+Owner's circumstance clause (owner ruling, 2026-11-12: "Depends
+on circumstance"). The treatment above is the automatic default:
+under an unverified price the rule stays fail-closed — distinct
+obligations never merge, and only an exact duplicate key locks.
+Where the circumstances of a specific case argue for applying the
+exact-key exception differently, that exception is applied per
+case on the owner's judgment. No agent self-grants the exception;
+until the owner rules on the case, the fail-closed default
+governs.
+
 ## 7. Claim lifecycle: states and release
 
 A claim is in exactly one state, and each state has its own exits.

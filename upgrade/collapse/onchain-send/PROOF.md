@@ -126,8 +126,18 @@ resolved structurally (no separate regression case, per the brief):
 
 ## Flags
 
-- **FLAG-1 — protection change carried by the latest amendment
-  (R-019, R-020; §6).** A-123's clause "where source control or
+- **FLAG-1 — RESOLVED-BY-OWNER (2026-11-12).** Owner ruling on
+  R-019/R-020 (and A-216, which waited on it): "Depends on
+  circumstance." The collapsed text in §6 stands as written —
+  distinct obligations never merge under an unverified price,
+  only an exact duplicate key locks — and §6 now also carries the
+  owner's circumstance clause: the exact-key exception is applied
+  per case on the owner's judgment, the automatic default stays
+  fail-closed, and no agent self-grants the exception. The
+  confirmation this flag asked for is given; the per-case call is
+  the owner's. History, as originally flagged: **protection
+  change carried by the latest amendment (R-019, R-020; §6).**
+  A-123's clause "where source control or
   value-equivalence cannot be established, treat as same class" is
   a fail-closed protection: under doubt, block. A-216 (the newest
   amendment, v3.5.21) overrides it for the unverified-price case:

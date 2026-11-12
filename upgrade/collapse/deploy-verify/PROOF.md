@@ -39,7 +39,7 @@ referenced, never duplicated, per the lane brief.
 | A-019 | 725 | §3 |
 | A-097 | 404 | §4 (the UNVERIFIED flag; D8's execution block) |
 | A-102 | 347 | §3 |
-| A-145 | 818 | §5 — subject to FLAG-1 |
+| A-145 | 818 | §5 — see FLAG-1 (RESOLVED-BY-OWNER, 2026-11-12) |
 | A-156 | 681 | §5, §7 |
 | A-164 | 1,053 | §5 (carried as the dependency definition qualifying A-156; B2 gives it no PROOF row of its own — coverage exists, attribution is thin) |
 | A-171 | 762 | §5 (the every-hop resolution inside the same paragraph; likewise no PROOF row of its own) |
@@ -73,20 +73,29 @@ R-041's pair and is not recounted. Summary of protections: every
 resolution keeps both sides' protections except the three items
 named in FLAG-3, which are tightenings (a weaker wording or
 sequencing replaced by its own later, stricter amendment), and
-FLAG-1, which is a defect in B2's draft, not in this one.
+FLAG-1, a divergence from verification-core §5 that the owner
+resolved in §5's favour on 2026-11-12 (RESOLVED-BY-OWNER, below).
 
 ## Flags (named, never silent)
 
-- **FLAG-1 — DROP-PROTECTION RISK, in verification-core §5 (lane
-  B2's draft), not in this folder.** R-050's resolution: a
-  continuing leg closes only on immutability, privacy or
-  destruction; operation end alone hands it over. Verification-
-  core §5 as drafted still lists "or the operation itself ends" as
-  a closure condition, so §5 does not pass regression RC-7. This
-  draft follows R-050 and records the divergence in CURRENT-STATE
-  §5. The orchestrator/B2 must correct §5 or explicitly overrule
-  R-050; until then the two drafts disagree on a closure condition
-  for public mutable destinations.
+- **FLAG-1 — RESOLVED-BY-OWNER (2026-11-12).** Owner ruling on
+  R-050: "When it's done it's done." Operation end CLOSES a
+  continuing leg. Verification-core §5 stands exactly as drafted
+  (no correction needed), regression RC-7's expected outcome is
+  flipped to closure-at-end, and CURRENT-STATE §5 now follows
+  verification-core with no divergence. The divergence this flag
+  recorded is closed by the owner's word, not by either lane.
+  History, as originally flagged: **DROP-PROTECTION RISK, in
+  verification-core §5 (lane B2's draft), not in this folder.**
+  R-050's resolution: a continuing leg closes only on
+  immutability, privacy or destruction; operation end alone hands
+  it over. Verification-core §5 as drafted still lists "or the
+  operation itself ends" as a closure condition, so §5 does not
+  pass regression RC-7. This draft follows R-050 and records the
+  divergence in CURRENT-STATE §5. The orchestrator/B2 must correct
+  §5 or explicitly overrule R-050; until then the two drafts
+  disagree on a closure condition for public mutable
+  destinations.
 - **FLAG-2 — DROPPED ATOM, content preserved.** A-152 is deleted
   as a standalone atom (registry-directed, survivor A-162). Its
   full operative content — undeterminable consume behaviour means
@@ -124,8 +133,10 @@ FLAG-1, which is a defect in B2's draft, not in this one.
   folder.
 
 **DROP-PROTECTION flags in this folder's own resolutions: none
-silent, and none net.** FLAG-1 is a protection B2's draft drops
-and this draft refuses to follow; FLAG-3's two items replace
+silent, and none net.** FLAG-1 was a protection B2's draft
+appeared to drop; the owner ruled for B2's text on 2026-11-12, so
+that closure reading is now owner-decided and recorded, not a
+silent drop by either lane; FLAG-3's two items replace
 weaker text with the stricter later amendment; FLAG-2 deletes an
 atom whose content survives entire.
 
