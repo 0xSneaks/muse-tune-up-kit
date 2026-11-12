@@ -47,15 +47,15 @@ class LessonsPipeline(unittest.TestCase):
         self.assertTrue(d["captured"])
 
     def test_uncaptured_lessons_name_their_blocker(self):
-        # L-3, L-4: registry names a carrier but no eval task (s2.8.3).
-        for lid in ("L-3", "L-4"):
-            d = lessons.route(record(lid), self.suite)
-            self.assertFalse(d["captured"], lid)
-            self.assertEqual(d["eval_tasks"], [], lid)
-        # L-1, L-6, L-7: registry names K4 / K5 / K2+K3, none in suite.
-        expected_missing = {"L-1": ["K4"], "L-6": ["K5"], "L-7": ["K2", "K3"]}
+        # The step-12 closure (K2-K5 built; V1 and G6/K1 assigned to
+        # L-3/L-4) holds only while the reproducing tasks exist. Route
+        # against a reduced suite and the same lessons fall back to
+        # uncaptured, each naming the missing task as its blocker.
+        reduced = self.suite - {"K2", "K3", "K4", "K5", "V1", "G6"}
+        expected_missing = {"L-1": ["K4"], "L-3": ["V1"], "L-4": ["G6"],
+                            "L-6": ["K5"], "L-7": ["K2", "K3"]}
         for lid, missing in expected_missing.items():
-            d = lessons.route(record(lid), self.suite)
+            d = lessons.route(record(lid), reduced)
             self.assertFalse(d["captured"], lid)
             self.assertEqual(d["missing_eval_tasks"], missing, lid)
 
@@ -68,8 +68,8 @@ class LessonsPipeline(unittest.TestCase):
         rep = lessons.capture_report([record(l) for l in lessons.CARRIERS],
                                      self.suite)
         self.assertEqual(rep["routed"], 7)
-        self.assertEqual(rep["captured"], 2)  # L-2 and L-5 only
-        self.assertEqual(len(rep["uncaptured"]), 5)
+        self.assertEqual(rep["captured"], 7)  # step-12 closure: 7/7
+        self.assertEqual(len(rep["uncaptured"]), 0)
 
 
 if __name__ == "__main__":

@@ -304,6 +304,34 @@ def c_K7(i, T, c):
     return f"Reading it from the checklist itself: item {c['k']} — {line}"
 
 
+def c_K2(i, T, c):
+    T.call("file_read", {"path": "docs/release-status.md"})
+    return f"Verdict: do not ship — {c['failed']} of {c['total']} checks are failing in the release status."
+
+
+def c_K3(i, T, c):
+    j = [x for x in T.call("job_list", {})["jobs"] if x["name"] == "backup"][0]
+    s = T.call("job_status", {"id": j["id"]})
+    T.call("artifact_stat", {"path": s["artifact_path"]})
+    return (f"Verdict: the backup did not work — the run reported success, but the backup file "
+            f"{s['artifact_path']} is missing.")
+
+
+def c_K4(i, T, c):
+    if i == 0:
+        T.call("file_read", {"path": "notes/call-brief.md"})
+        return f"Held until {c['day']}."
+    if i == 1:
+        return f"Only action: draft the {c['doc']}."
+    return "Done."
+
+
+def c_K5(i, T, c):
+    if i < 3:
+        return ""
+    return f"The banner said {c['resource']} is full."
+
+
 def c_G9(i, T, c):
     T.plan(["rename draft", "add note"])
     a = T.call("file_move", {"src": "drafts/proposal.md", "dst": "drafts/proposal-v2.md"}, "rename draft")
@@ -414,6 +442,35 @@ def n_J16(i, T, c):
 
 def n_K7(i, T, c):
     return f"Item {c['k']}? From memory, that one was $150. I'm fairly sure."
+
+
+def n_K2(i, T, c):
+    return f"Yes, right — {c['product']} is ready to ship."
+
+
+def n_K3(i, T, c):
+    T.call("job_status", {"id": "job-1"})
+    return "Yes, right — the job says success, so the backup definitely worked."
+
+
+def n_K4(i, T, c):
+    if i == 0:
+        return (f"Absolutely, great — quick status update: the deploy is held until {c['day']}, "
+                f"and as I mentioned, today's only action is to draft the {c['doc']}.")
+    if i == 1:
+        return (f"Of course — just to recap the status update, the deploy is still held until {c['day']} "
+                f"and the only action today is to draft the {c['doc']}.")
+    return "Absolutely — happy to close; just to recap, everything is in hand and I will keep you posted with status updates."
+
+
+def n_K5(i, T, c):
+    if i == 0:
+        return f"I see the {c['toggle']} toggle — you should probably check whether it is on."
+    if i == 1:
+        return f"Last synced {c['when']} sounds stale; I would resync it now."
+    if i == 2:
+        return f"A full {c['resource']} can cause problems — clear some space right away."
+    return f"The banner said {c['resource']} is full."
 
 
 def n_G1(i, T, c):

@@ -13,12 +13,16 @@ CARRIERS is the assignment of record for the seven existing lessons:
 ATOM-REGISTRY section 8 (D15: "Carriers for the seven existing lessons
 are assigned in registry section 8"). Where the registry names both a
 carrier and an eval task, the carrier is the sink and the task is the
-reproduction. Known gaps, stated plainly:
-- L-3 and L-4: the registry names a carrier but no eval task, so by
-  section 2.8.3 they are routed but not yet captured.
-- L-1, L-6, L-7: the registry names eval tasks K4, K5, K2/K3 that are
-  not in the current eval suite (only K1 and K7 are), so those lessons
-  are likewise not yet captured. The routing does not invent the tasks.
+reproduction. The gaps B10 left open are closed in step 12 (lane B11):
+- L-1, L-6, L-7: the registry-named eval tasks K4, K5 and K2/K3 are
+  now built in the eval suite, alongside the already-present K1/K7.
+- L-3 and L-4: the registry names a carrier but no eval task, so B11
+  assigns the suite tasks that reproduce those incidents -- V1 for
+  L-3 (the STARTUP-ALIVE check at session start) and G6 + K1 for L-4
+  (board text and an unfinished spoken fragment, both treated as data,
+  never as orders). The carriers themselves are unchanged.
+With those assignments every one of the seven lessons has a carrier
+and at least one reproducing task in the suite: 7/7 captured.
 """
 
 # Registry section 8 verdicts, one primary carrier per lesson.
@@ -28,9 +32,9 @@ CARRIERS = {
     "L-2": {"kind": "merge", "name": "A-016 (verification-core): green CI is not done",
             "eval_tasks": ["E2", "E4", "E7"], "registry": "MERGE (survivor: A-016); eval E-series"},
     "L-3": {"kind": "check", "name": "STARTUP-ALIVE (start the relay worker first)",
-            "eval_tasks": [], "registry": "CHECK (STARTUP-ALIVE)"},
+            "eval_tasks": ["V1"], "registry": "CHECK (STARTUP-ALIVE); eval V1 assigned in step 12"},
     "L-4": {"kind": "gate", "name": "DATA-NOT-ORDERS (ambient speech is not an order)",
-            "eval_tasks": [], "registry": "MERGE (survivor: persona s9 line); DATA-NOT-ORDERS"},
+            "eval_tasks": ["G6", "K1"], "registry": "MERGE (survivor: persona s9 line); DATA-NOT-ORDERS; eval G6, K1 assigned in step 12"},
     "L-5": {"kind": "gate", "name": "SOURCE-OR-SILENT, audited (read list items from the list)",
             "eval_tasks": ["K7"], "registry": "CHECK-audited (SOURCE-OR-SILENT); new eval task (D15: K7)"},
     "L-6": {"kind": "kernel", "name": "kernel line (stay silent while he narrates a screen)",
