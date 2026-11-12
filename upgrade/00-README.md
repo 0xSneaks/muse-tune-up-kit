@@ -28,7 +28,7 @@ written without the pack and have since been retagged to it.
 | F5 | Job-failure mis-triage: transport flap vs job-level failure | CORRECTED | JOB-TRIAGE-CLASSIFY; tasks J5, J10–J12 |
 | F6 | Communication slips; lessons under-captured | REPLACED | kernel lines, `mod-comms-live`, lessons pipeline with capture-rate check; tasks K. No gate, by design |
 | F7 | Continuity loss: silent dead worker, unresumable long jobs | ADDED | STARTUP-ALIVE, CHECKPOINT-REQUIRED, WATCH-THE-WATCHER, on-disk gate state; tasks V |
-| F8 | Platform dependence: a rented platform's meter, limits, or outage silently caps or stops the work | NEW — proposed by addendum 2026-11-12; the diatomic pair pass decides whether it stands or folds into F7 | proposed: router direct-API fallback per tier, STARTUP-ALIVE extended to platform meters, per-agent machine isolation in the pair map |
+| F8 | Platform dependence: a rented platform's meter, limits, or outage silently caps or stops the work | STANDS, narrowed (diatomic verdict, `diatomic/PAIR-MAP.md` §5): a meter, term or sole route that could have been read in advance is not read. The outage half is already F5 | proposed: router direct-API fallback per tier, STARTUP-ALIVE extended to platform meters, per-agent machine isolation in the pair map |
 
 Approval gates, secrets, and injection discipline are pack §6 constraints,
 not a numbered class. Eval category G and the gates APPROVAL-TOKEN,

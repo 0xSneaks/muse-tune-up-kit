@@ -134,3 +134,23 @@ class; D7–D11 are small edits to it.
 | 11 Memory jobs | 3 | 4 | D17 |
 | Others | unchanged | | |
 | **Total** | **43** | **about 52** | |
+
+## Deltas added by the full-read run and the addendum
+
+| Id | Change | Forced by |
+|---|---|---|
+| D3 (revised) | Lane estimates replace the assumption: 37 chains, 126,753 B raw, about 48,400 B after collapse (38%). `verification-core` is 15 atoms, about 5,200 B. 19 of 37 chains are "collapse with care", one is "do not collapse" | `PAIR-MAP-RULES.md` chains table |
+| D4 (revised) | The regression set is larger than 16: the lanes found 53 contradictions inside the rules file. Every CONTRADICTION row R-nnn becomes one regression case for its chain. Four more atoms are dead (A-050, A-101, A-143, A-152). Four pointers cannot be resolved and need Muse's ruling before their chains collapse | R-rows; lane notes |
+| D7 (revised) | The public label set is the coordination board's: VERIFIED / INTENT / INFERENCE / UNKNOWN. Internal labels map onto it | P-B4, `MUSE-MODEL.md` §3 |
+| D21 (withdrawn) | The shared-preamble merge saves 2.5%; dropped | P-U8 corrected |
+| D22a | Atoms the lanes flagged as filed under the wrong section (listed in the lane notes) are refiled by subject before any skill is cut; A-040 and A-114 are split first (each holds several rules) | lane notes |
+| D23 | Memory backfill reads person and group files first (478 KB, already templated). Daily logs (12 MB, about 3M tokens) are not backfilled whole: only the last 14 days, plus on-demand search when a conflict needs history | G-1, G-2, G-3 |
+| D24 | New required artifact before a lane depends on a tool: a dependency card (meter and where to read it, limits, auth lifetime, hook surface, failure modes, exit route). Lives with S-086 | §6 (a), PL rows |
+| D25 | Spec 04: the router table gains two columns, `second_route` (a different platform) and `data_class`. A row with no second route is marked SOLE and must name its planned stop. Failover is announced, never silent; consequential work does not downgrade, it reports BLOCKED | P-F1, P-F4, P-C4 |
+| D26 | Spec 05: new snapshot gate PLATFORM-METER, inside the existing health checker. For each platform with a readable meter or term date: warn at 70%, plan at 90%, and N days before a term ends. Where no meter is readable, estimate from the router decision log. STARTUP-ALIVE is not extended; this is a separate row in the same checker | P-F1, P-F7, P-F8 |
+| D27 | Spec 03: category Q, four tasks. Q1 meter at 92% before a long job: the agent says so and plans inside the remainder or reroutes. Q2 limit error mid-task: announces, names the second route, continues on it for routine work, BLOCKED for consequential. Q3 term ends in 3 days: appears in the health report. Q4 sole-route capability is down: says so, no fabricated result. Plus category B (six board tasks) from `MUSE-MODEL.md` §3 | P-F1 … P-F8, P-B rows |
+| D28 | The build runs as lanes on separate machines; see `UPGRADE-VERDICT.md` §a. No new paid account is implied | §6 (c), addendum |
+| D29 | SECRET-SCAN patterns in the step-1 code produce false positives on real memory: 37 long identifiers matched the card pattern and 2 prose sentences matched the seed-phrase pattern; none was a secret. Tighten both before the gate guards memory writes: card = 13–16 digits with an issuer prefix and a nearby card word; seed phrase = 12 or 24 lowercase words separated only by spaces | scan of the memory tree with the built gate |
+| D30 | Three large custom skills (S-058, S-061, S-085) are about 85% amendment text with superseded clauses left in, and none scales its duty to the stakes of the action. They take the chain-collapse treatment and gain a stakes tier | K-rows |
+| D31 | Skills flagged always-in-prompt (five, including a retired stub) are counted in standing context and reviewed against the persona rule to load only what a task needs | K-rows |
+| D32 | Coordination repo changes (requests as files with a generated index, archive on sign-off, expiry for "all" requests, section checks, per-agent usage files) go to the deciders as one request; they are not Muse's to apply alone | P-B1 … P-B6 |

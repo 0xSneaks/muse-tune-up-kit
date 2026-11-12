@@ -29,7 +29,7 @@ headings and sizes of a personal file.
 | P-U5 | A-045, A-068, A-086, S-058; and A-050, A-075, A-078 | bind verification to bytes not paths; path-only bar | A-045/A-068 carry the same title in two sections; A-050 and A-078 restate A-075 | one `verification-core` rule (see P-D2) | TITLE (rules), DESCRIPTION-LINE (skill) |
 | P-U6 | chain C-PUB-WAIVER (9 atoms, 7,575 B), A-081, A-089, A-093, A-101, S-059, P-14 line 4, L-4 | whose word counts as the owner's | scattered copies | S-059 as the single home | TITLE |
 | P-U7 | A-017, S-061, S-086, spec LEG-INVENTORY | split work into legs, verify each | — | A-017's rule as the core; the two skills cite it | READ (A-017), DESCRIPTION-LINE (skills) |
-| P-U8 | S-063 … S-079 | all 17 market-data playbooks contain the same "before running any command" preamble | 16 copies | one shared reference file | READ (string match, 17 of 17) |
+| P-U8 | S-063 … S-079 | CORRECTED after measurement: the 17 market-data playbooks share a recurring phrase but only one identical paragraph; removable duplicate text is 16,283 B of 649,562 B (2.5%) | nothing | no merge; they stay on-demand as they are | MEASURED by script |
 | P-U9 | A-031, P-12 last paragraph, X-6 §4 | batch all approvals before the flow | A-031 | P-12 | READ |
 | P-U10 | A-036, P-17 item 4, S-086 | docs or ground truth before claiming a mechanic | A-036 | S-086, one kernel line | READ |
 | P-U11 | P-10, L-1, L-4, L-6 | call discipline | the lessons, once carried | three kernel lines + skill `comms-live` | READ |
@@ -84,3 +84,69 @@ Bytes at stake in the rules file from P-U4, P-U5, P-U6 alone: about 45 KB.
 | P-G5 | Jobs (31), goal workspaces (131) and handoffs (730) appear only as counts | Job-to-job duplication, jobs whose purpose ended, and job-to-goal links cannot be assessed. P-18 ("scheduled tasks only when he asks") cannot be checked against G-4 | BLOCKED-ON-CORPUS |
 | P-G6 | No test covers the 16 replacements in P-C7 | Consolidating adversarially evolved rules with a mid-tier model can silently drop a protection. Each replacement is a ready-made regression case | OPENING |
 | P-G7 | No atom covers memory writes: what may be stored, where, with what provenance | F4 has no carrier at all before spec 02 is built | READ (script count) |
+
+## 5. Platform atoms and F8 (addendum questions 1 and 2)
+
+Capabilities that run through a platform Muse rents or that meters it.
+Names are generic; evidence ids point at where the dependence is stated.
+
+| Id | Platform atom | Meter or limit | Precedent on record | Second route designed? | Evidence |
+|---|---|---|---|---|---|
+| PL-1 | multi-model API subscription (the bench; carries the main workhorse route) | fixed term with an end date; provider rate limits | none on record; the term has a stated end date and renewal is off | named in a recommended stack, not shown as configured | M-5, M-9, S-082 |
+| PL-2 | phone bridge tunnel (phone-hosted models, device control) | none; availability | repeated tunnel outages; a recovery skill exists because of them | partial: bench API for models, browser sign-in for access | A-035, S-091, M-3 |
+| PL-3 | the host agent platform (VM, egress proxy, scheduler, approval cards, context injection) | not in corpus | per-session credentials go stale in long-lived workers; an approval card timed out and killed a watcher run | none possible: it is the runtime | A-008, X-6 |
+| PL-4 | frontier reviewer agent on a consumer subscription | 5-hour and weekly meters | weekly meter at 91% on 2026-11-12; **one read lane of this analysis stopped on the 5-hour limit** | none | P-12, P-15, coordination usage file |
+| PL-5 | other chat-agent subscriptions used as lanes | per-plan usage | one at 40% on its reset day, 2026-11-10 | stated behavior is "blocked → stop and tell the owner" | M-3, addendum |
+| PL-6 | code-hosting platform as the coordination bus | API limits; an approval card per connector call | 16 of 20 approval cards in one day were for this connector | stored-token path, tested once | X-6 |
+| PL-7 | market-data API behind a CLI | rate limits (mentioned 96 times across the 17 playbooks) | none on record | not read (lane stopped) | S-063 … S-079 |
+| PL-8 | chain data / RPC API behind a key | provider limits | none on record | none stated in the execution skill | S-083, A-057 |
+| PL-9 | hosted browser and logged-in web sessions | session lifetime | — | yes: the timed-session skill sizes work to the session | S-094, S-060 |
+| PL-10 | messenger mini-app host, web hosting, social networks | plan and platform rules | — | partial or none | S-062, S-092 |
+
+Of the 20 custom skills read in full, 12 depend on a rented or metered
+platform and 3 state a complete fallback (skills lane, `PAIR-MAP-RULES.md`).
+
+| Id | Platform × other atom | Finding | Type |
+|---|---|---|---|
+| P-F1 | PL-1, PL-4, PL-5 × S-082 §6, P-16 | The router's only limit rule is "A provider fails → say so, name the next option. No silent failover." That covers a failure that is noticed. Nothing reads a meter before the limit, and no table names the next option per job | GAP |
+| P-F2 | PL-4 × P-12, P-15 | Two things hang on one metered agent: the delegated approval for submissions and "a different agent accepts my work". When its meter runs out, submissions and acceptance both stop, with no stated substitute | DEPENDENCY |
+| P-F3 | PL-4 × spec 03, spec 04 | The head-to-head reference and the frontier tier use the same metered agent. Spec 03 already limits it to one run per suite version; nothing checks the meter before that run starts | DEPENDENCY |
+| P-F4 | PL-1 × S-082 §2 | Every row of the routing table resolves to the bench. A term end removes all rows at once | DEPENDENCY |
+| P-F5 | PL-2 × A-035 | Bridge outages are already a named transport family in the triage rule, so an outage is classified. That part of F8 is F5 and is covered | DUPLICATION with F5 |
+| P-F6 | PL-3 × A-008 × spec STARTUP-ALIVE | Liveness that tests reachability passes while credentials are stale. One-machine-per-lane isolation helps here: a lane on its own machine has its own credentials and its death does not take the orchestrator with it | DEPENDENCY |
+| P-F7 | coordination usage file × all other agents | A working meter reader exists for one agent (thresholds: session 80%, weekly 70%). Ten roster agents have none | GAP |
+| P-F8 | rule clause "sign off when near your usage limit" × no meter | The coordination rule already requires the F8 behavior; without a meter it cannot be obeyed | CONTRADICTION |
+
+**Verdict on F8: it stands as its own class, narrowed.** It is not F7.
+F7 is internal state lost (a worker not started, a job killed). F8 is
+external capacity running out or a sole route disappearing: a different
+cause, read from a different place (a meter or a term date, in advance),
+with a different fix (a second route or a planned stop). The outage half
+of the proposed F8 is already F5 (P-F5) and stays there.
+
+F8, as adopted: **a meter, term or sole route that could have been read in
+advance is not read, and the work stops or degrades without a plan.**
+Carriers: dependency card per platform; a meter snapshot in the existing
+health checker; a second-route column in the router; sign-off before the
+limit. Deltas D24–D27.
+
+## 6. The three methods (addendum question 3), judged on corpus evidence
+
+| Method | Evidence in the corpus | Verdict |
+|---|---|---|
+| (a) Map a tool before depending on it | Seven platform quirks were each learned by failure (A-007 … A-013). The no-hook surface was found by reading an integration surface, and it invalidates part of spec 05 (P-D8). Existing bench documents already open with a "this fails if…" table. A skill for ground-truth capability checks exists (S-086) | ADOPT, as an extension of S-086: a dependency card (meter, limits, auth lifetime, hook surface, failure modes, exit route) before a tool enters a build lane. D24 |
+| (b) Design before code, as a UI gate | The persona already requires real references and a concrete target for visual work, and a quality-bars skill exists. The upgrade has one visual deliverable: the gainshare statement | ADOPT narrowly: a mock of the statement is approved before step 14 is coded. No new atom |
+| (c) One orchestrator over several machines | The VM has 2 CPUs and 7.7 GB and cannot host parallel builders. Credentials are per session (A-008). The routing skill already defines lanes with one owner and separate files. Builder agents on their own machines do not inherit the 222 KB standing context and are not bound by the no-hook limit | ADOPT for the build, as directed. The phone is not a build lane: it is reached through the tunnel with the outage record. D28 |
+
+## 7. Coordination-layer pairs
+
+| Id | Atoms | Finding | Type |
+|---|---|---|---|
+| P-B1 | coordination rule "read the board" × board size | The board file is 183,293 B; its requests section alone is 116,888 B. A check-in that reads it costs about 46k tokens; Muse's timer does this six times a day | F3 at the coordination layer |
+| P-B2 | rule "keep last 10 handoffs" × requests and claims | Handoff lines are capped by the checker; requests (273 lines, 85 DONE still present) and claims are not | GAP |
+| P-B3 | checker warning at 24 h × board state | 13 of 21 claims are older than 7 days; 40 open requests are older than 14 days. A warning nobody must clear is not a carrier | GAP |
+| P-B4 | board labels × Muse labels | VERIFIED / INTENT / INFERENCE / UNKNOWN is a fifth vocabulary (see P-C2) | CONTRADICTION |
+| P-B5 | relay worker × its own README × L-3 | The README still marks the Muse link "not verified"; the lesson says the worker was never started. The worker is in no registry | DEPENDENCY |
+| P-B6 | state file "read this first" × its content | It describes a gate dated six days before the read | CONTRADICTION |
+
+Model and conformance table: `../MUSE-MODEL.md` §3.

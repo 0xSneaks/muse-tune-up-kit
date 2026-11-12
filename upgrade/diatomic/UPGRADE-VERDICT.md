@@ -1,121 +1,156 @@
 # UPGRADE-VERDICT — closers from the diatomic analysis
 
-Corpus read at private commit `965981a`. Counts: 379 registry rows over
-379 atoms (100% of the manifest and its sub-atoms); 63 rows
-BLOCKED-ON-CORPUS; 45 pair findings (14 duplication, 13 contradiction, 11 dependency, 7 gap).
+Sources: private corpus at `965981a`; public coordination repo at
+`6e4a886`. Second edition, after the full-read run.
 
-## The verdict in five lines
+## Counts
 
-1. The rules file is not a general rulebook. 93.5% of its rule bytes are four
-   tool-specific procedures (pre-publish, on-chain send, media, deploy).
-   Almost none of it needs to be in context on an ordinary turn.
-2. Those procedures are amendment chains: 129 amendment atoms across 16
-   versions, 16 of which replace wording that is still in the file.
-3. The system already owns the mechanism the diet needs (skills) and two
-   of the tools the specs designed from scratch (job runner, health
-   checker). The specs duplicated them.
-4. The runtime reportedly has no hooks. Gates designed as hooks must be
-   re-cut as wrappers, snapshot checks, or after-the-fact audits.
-5. The self-audit effort went where the incidents were dramatic, not
-   where they recur: F4, F6 and F7 have almost no carriers.
+| Item | Count |
+|---|---|
+| Registry rows ÷ atoms | 379 ÷ 379 = 100% (108 manifest atoms, 271 sub-atoms) |
+| Rule atoms read in full | 220 of 220 |
+| Custom skills read in full | 20 of 37; the other 17 measured by script |
+| BLOCKED-ON-CORPUS | 59 (57 system skill bodies, the scheduled-job list, the goal workspaces) |
+| Pair findings, system level (`PAIR-MAP.md`) | 59: 14 duplication, 13 contradiction, 11 dependency, 7 gap, 8 platform, 6 coordination |
+| Pair findings inside the rules file and skills (`PAIR-MAP-RULES.md`) | 125: 65 contradiction, 27 duplication, 21 gap, 12 dependency. Each lane reported its 25 strongest, so this is a cap, not a census |
+| Amendment chains | 37; 126,753 B raw, about 48,400 B after collapse (lane estimates) |
+| Spec deltas | 32, one withdrawn |
 
-## (a) Revised build order
+## The verdict in six lines
 
-| Step | Work | Days | Status |
+1. The rules file is four tool-specific procedures (93.5% of rule bytes),
+   not a general rulebook. It does not need to load on an ordinary turn.
+2. Those procedures contradict themselves. The full read found 53
+   contradictions inside the rules file: amendments that override text
+   still present, rules filed under the wrong section, and at least two
+   combinations that cannot be satisfied as written.
+3. The same growth pattern is inside three large skills (about 85%
+   amendment text), so moving rules into skills without collapsing them
+   only moves the problem.
+4. Muse already owns the loading mechanism (skills), a job runner, a
+   health checker, an eval set and one working usage meter. The first
+   specs re-designed four of those.
+5. The runtime reportedly has no hook. Checks must be wrappers around
+   scripts, snapshot checks, or after-the-fact audits.
+6. F8 stands as its own class, narrowed to capacity that could have been
+   read in advance. It hit this analysis: one read lane stopped on a
+   usage limit with no second route.
+
+## (a) Build order, in lanes and machines
+
+Method, per the owner's directive: Muse is the single orchestrator;
+builders run in parallel lanes on separate machines; a tool gets a
+dependency card before a lane depends on it; visual work gets a mock
+first; direct routes are preferred to metered wrappers. No new paid
+account is assumed. **Only steps 1–3 are authorized to build.** The rest
+is the plan.
+
+Machines on hand, as far as the corpus shows:
+
+| Machine | Use | Limits |
+|---|---|---|
+| VM | orchestrator; anything that touches live Muse state or personal data | 2 CPUs, 7.7 GB; per-session credentials; no parallel builders |
+| Cloud coding sandboxes (the kind earlier tune-up runs and this session used) | stateless builder lanes on code with no personal data | no access to Muse's live state; the agents that drive them are metered |
+| Phone | model route and test device only | reached through the tunnel with the outage record; **not a build lane** |
+
+Lanes:
+
+| Lane | Runs on | Driven by | Owns |
 |---|---|---|---|
-| 0 | Muse answers three questions: is there any pre-tool or pre-reply hook (P-D8); can crew and cron context differ from main chat (P-D9); who generates and injects the synthesis file (P-G1) | 0.5 | open |
-| 1 | Gates library | done | built, `d3c7684`. Follow-up edits D7–D11 and wrapper CLIs: 2 days |
-| 2 | Eval rig + 15 smoke tasks | done | built, `d3c7684` |
-| 3 | Baseline run on Muse's machine, frozen | 1 | blocked on Muse |
-| 4 | Remaining tasks incl. J13–J16, K7, category W; judge mutation test | 6 | |
-| 5 | Full read of 184 rule atoms and 37 skill bodies; final CHECK split | 1 | |
-| 5b | Chain collapse: resolve pointers, refile, one current-state rule per chain, 16-case regression set | 6 | new |
-| 6 | Remaining gates as wrappers or snapshot checks; the nightly auditor job; JOB-TRIAGE-CLASSIFY from A-035 | 3 | |
-| 7 | Five skills from the collapsed chains, one per commit, eval between each | 3 | |
-| 8 | Kernel diff proposed to the owner (3.5 KB verbatim + trimmed lines) | 1 + review | owner-gated |
-| 9 | Fact ledger, backfill, generated views | 4 | |
-| 10 | DEP-STAMP, CORRECTION-SWEEP, resurrection guard | 3 | |
-| 11 | Consolidation, staleness audit, lessons pipeline (one sink), standing orders out of LIVE | 4 | |
-| 12 | Router folded into the existing routing skill; data-class column; spend-gated escalation | 3 | |
-| 13 | Full suite, head-to-head, first router fit | 2 | |
-| 14 | Gainshare export analyzer | 2 | |
+| O orchestrator | VM | Muse | board, integration, baseline, anything personal, the kernel diff |
+| B1 builder | cloud sandbox | main coding agent | gates, wrappers, eval rig, auditor |
+| B2 builder | cloud sandbox | second coding agent, different maker | router, analyzer, chain-collapse drafts |
+| R reviewer | chat | a different maker from the lane under review | verified / rejected on each lane's proof |
+| F frontier | metered | evaluator agent | reference run and one chain attack; scheduled against its meter |
 
-About 52 working days in total, up from 43. The increase is step 5b.
-Order rule added: step 5b before step 7, and steps 9–11 before any new
-rule is written for publish, send, media or deploy (D19).
+| Step | Work | Lane | Days | State |
+|---|---|---|---|---|
+| 0 | Dependency cards for the runtime: hook surface, context per crew and job, who injects the synthesis file, each machine's auth lifetime | O | 0.5 | open |
+| 1 | Gates library | B1 | done | `d3c7684`; follow-ups D8–D11, D29: 2 days |
+| 2 | Eval rig, 15 smoke tasks | B1 | done | `d3c7684` |
+| 3 | Baseline on the live system, frozen | O | 1 | blocked on Muse's machine |
+| 4 | Remaining tasks: J13–J16, K7, categories W, Q, B; judge mutation test | B1 | 7 | plan |
+| 5 | Rulings on 4 unresolved pointers and 2 unsatisfiable combinations | O + owner where a protection changes | 0.5 | plan |
+| 5b | Chain collapse: 37 chains, drafts by B2, each attacked by R against its regression cases (one per contradiction row) | B2 → R | 7 | plan |
+| 6 | Wrappers and snapshot checks; auditor job; triage classifier from A-035; PLATFORM-METER | B1 | 4 | plan |
+| 7 | Five rule skills from the collapsed chains, one per commit | B2 → O | 3 | plan |
+| 8 | Kernel diff: 3.5 KB verbatim plus trimmed lines | O → owner | 1 + review | owner-gated |
+| 9 | Ledger; backfill from person and group files | O | 3 | plan |
+| 10 | DEP-STAMP, CORRECTION-SWEEP, resurrection guard | B1 → O | 3 | plan |
+| 11 | Consolidation, staleness audit, lessons pipeline, standing orders out of LIVE | O | 4 | plan |
+| 12 | Router table in the routing skill: second route, data class, spend-gated escalation | B2 | 3 | plan |
+| 13 | Full suite; head-to-head | O + F | 2 | plan |
+| 14 | Statement mock approved, then the export analyzer | B2 | 2 | plan |
+| C | Coordination repo changes, as one request to the deciders | deciders | 2 | plan |
+
+About 54 working days of lane time; with B1 and B2 in parallel, roughly
+30 calendar days after step 3. Lanes B1 and B2 never touch the same
+files: B1 owns `upgrade/build/`, B2 owns the skills and the router.
 
 ## (b) Top 3 risks the pair pass found — bond risks
 
-1. **Splitting bonded rules (P-D2, P-D3, P-C7).** The four domains are
-   not separable as filed: 14 atoms span domains, 28 point at other atoms
-   by position, and 16 override text that is still present. Moving them
-   into skills before the chains are collapsed produces skills that
-   contradict themselves or miss a shared rule. This is the most likely
-   way the upgrade weakens the verification doctrine, which the
-   acceptance frame forbids.
-2. **Checks bonded to a hook that is not there (P-D8, P-D7, P-G2).** The
-   specs converted prose to "executable checks" on the assumption of an
-   interception point. If none exists, a rule removed from standing
-   context and "replaced by a gate" is replaced by nothing. Every rule
-   must be shown to have an ENFORCED or AUDITED carrier before its prose
-   leaves the standing files.
-3. **A diet bonded to files Muse may not control or edit (P-G1, P-D5,
-   P-D9).** 34 KB of synthesis may be platform-written; 3.5 KB of persona
-   is owner-locked; crew and cron context may not be separable. If all
-   three go the wrong way, the reachable floor is near 50 KB of standing
-   context, not 16.
+1. **Collapsing rules that fight each other.** 53 contradictions, a
+   set of atoms under the wrong heading, 4 pointers that lead nowhere, 19 chains
+   marked "collapse with care". Each chain's table row names the
+   protection a careless merge would drop. A collapse that resolves a
+   contradiction the wrong way weakens the verification doctrine while
+   looking like a clean-up. The guard is step 5b's rule: no chain ships
+   without a regression case per contradiction and a reviewer from a
+   different maker.
+2. **Rules whose carrier is a hook that does not exist.** A rule removed
+   from standing context and "replaced by a gate" is replaced by nothing
+   if the gate cannot attach. Of the 74 atoms the lanes marked as
+   checkable, each must be assigned wrapper, snapshot or audit before its
+   prose leaves. The same bond exists in the coordination layer: warnings
+   that nobody must clear (P-B3).
+3. **Everything that matters hangs on a few metered routes.** The main
+   model route, the reviewer who accepts work, the delegated approval for
+   submissions, and the head-to-head reference each have one route and no
+   meter check. A limit on any one stops a class of work, and the
+   coordination rule's own remedy (sign off before the limit) cannot be
+   obeyed without a meter.
 
-## (c) What Pass B tests first, given the pair map
+Carried from the first edition and still true: the 16 KB target depends
+on who owns the 34 KB synthesis file and on four owner-locked persona
+sections.
 
-1. **The hook question, empirically.** On Muse's machine, try to
-   intercept one native tool call and one reply. The answer picks between
-   the spec-05 design and D1.
-2. **One chain end to end.** Collapse C-SEND-RELEASE (12 atoms, 8,881 B,
-   three replacements) to a current-state rule, write its three
-   regression cases, and have the frontier evaluator attack the collapsed
-   rule against the original 12. If it holds, D4 is viable for the other
-   19 chains.
-3. **A-035 as code.** Implement the classifier from the atom and run it
-   over the last 30 days of real job history. Disagreements with Muse's
-   own past classifications are either bugs or evidence the prose was not
-   being followed.
-4. **Standing orders audit.** Classify each line of M-3 and M-4 as rule
-   or fact (on Muse's machine; personal content). That sets the real LIVE
-   size.
-5. **Inventory independence.** Rebuild the manifest from the filesystem
-   by script and diff it against the one Muse wrote (P-G4): 131 / 134 /
-   135 files and the missing X assets.
+## (c) What Pass B tests first
 
-## (d) What the private corpus unlocked, and what is still blocked
+1. **The hook question**, on Muse's machine: try to intercept one native
+   tool call and one reply.
+2. **One chain end to end**: the claim-release chain in the on-chain
+   domain. Collapse it, run its regression cases, and let the frontier
+   evaluator attack the result against the original atoms.
+3. **The two unsatisfiable combinations** the media lane found (A-186
+   with A-198; A-214 with A-198): confirm on a real file that no
+   procedure satisfies both, then rule.
+4. **The triage rule as code** over 30 days of real job history.
+5. **A meter drill**: start a long job with a meter above its warning
+   threshold and confirm the sign-off-first behavior (Q1, B5).
+6. **Check-in cost**: time and tokens for one check-in reading the whole
+   board against one using the inbox command.
+7. **Rebuild the manifest by script** and diff it against the one Muse
+   wrote (131 / 134 / 135 files).
 
-Unlocked (was blind before): the domain split, the chain structure, the
-label conflict, the locked persona sections, the real triage rule, the
-existing tools, and every READ row in the pair map.
+## (d) Still blocked, and still unread
 
-BLOCKED-ON-CORPUS (63 rows), consolidated:
-
-| What | Rows | What would unlock it |
+| What | Count | Unlocks with |
 |---|---|---|
-| System skill bodies | 57 (S-001 … S-057) | their text, or confirmation they are platform-owned and not editable |
-| Scheduled job list | 1 (G-4; 31 jobs) | name, schedule, purpose, last status per job |
-| Goal workspaces | 1 (G-5; 131) | list with last-touched dates |
-| Coordination handoffs | 1 (G-6; 730) | list with open/closed state |
-| Memory tree, per file | 3 (G-1, G-2, G-3; 129 files) | present in the corpus but deliberately not opened: personal content, and per-file verdicts are spec 02's backfill job on Muse's machine |
-
-NOT-READ-IN-FULL — a limit of this session, not of the corpus:
-
-| What | Count | Consequence |
-|---|---|---|
-| Rule atoms A-037 … A-220 | 184 | domain and chain verdicts stand; the 102 CHECK-candidate flags are a keyword heuristic |
-| Custom skill bodies | 37 | verdicts rest on the first line of each |
-| Live memory, synthesis, user, identity, tools content | 5 files | headings and sizes only, by design |
+| System skill bodies | 57 | their text, or confirmation they are platform-owned |
+| Scheduled-job list | 31 jobs | name, schedule, purpose, last status per job |
+| Goal workspaces | 131 | a list with last-touched dates |
+| Market-data skill bodies (not read; measured) | 17 | re-running one read lane once the usage limit resets |
+| Personal files and the memory tree (structure only, by design) | 5 files + 129 files | stays on Muse's machine; spec 02's backfill does the per-file work |
 
 ## Calibration
 
-The first-draft specs guessed at a system they had not seen. Scored
-against the corpus: the kernel-and-modules shape, the ledger, and the
-eval rig hold; the module budget was wrong by 8×; two gates contradicted
-the real rules (P-C10, P-C11); one contradicted the persona (P-C12); and
-three components were re-designs of things that exist. Treat the
-TITLE-level verdicts in the registry with the same suspicion until
-step 5 is done.
+First edition, before the full read: I classified 184 rule atoms from
+their titles. The full read kept the domain split but changed the
+picture inside it: 4 dead atoms instead of 1, 53 contradictions instead
+of 16 known replacements, and a collapse estimate of 38% where I had
+guessed 40–60%. One of my own first-edition findings was wrong (the
+shared preamble in the market-data skills: 2.5%, not a merge candidate).
+The step-1 code I built has a real defect found by running it on the
+memory tree (D29). Treat the lane outputs the same way: they are one
+read each, unreviewed by a second model, because the usage limit that
+stopped one lane also left no room for a review pass.
