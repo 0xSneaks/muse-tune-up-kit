@@ -12,7 +12,7 @@ Python 3, standard library only. No network, no accounts, no secrets.
 
 ```
 cd upgrade/build
-python3 -W error -m unittest discover -s tests      # 15 tests
+python3 -W error -m unittest discover -s tests      # 16 tests
 python3 -m evalrig.runner --agent careful --gates on  --out /tmp/x.json
 python3 -m evalrig.runner --agent naive   --gates off --out /tmp/y.json
 ```
@@ -48,12 +48,16 @@ Behaviors worth knowing before wiring:
 
 - `fixtures.py` — mock world, 28 tools, fault injection
   (silent no-op write, timeout-after-delivery), seeded variation.
-- `tasks.py` — the 15 smoke tasks with script scorers:
-  R2 R5 E2 E4 E7 M2 M3 J1 J3 G1 G6 G9 J11 K1 V1. No judge model is needed
-  for any of them.
+- `tasks.py` — the 20 smoke tasks with script scorers:
+  R2 R5 E2 E4 E7 M2 M3 J1 J3 G1 G6 G9 J11 J13 J14 J15 J16 K1 K7 V1.
+  (J13–J16 and K7 were added in step 4 per SPEC-DELTA D5/D15.) No judge
+  model is needed for any of them.
 - `runner.py` — tasks × seeds, gates on or off, results JSON, `--freeze`.
 - `agents.py` — `CommandAgent` (JSON-lines protocol for any real agent)
   and two scripted reference agents.
+- `adapters/muse_agent.py` — Muse itself, via the local Claude CLI
+  (step 3 below; written, mock-tested only — never run against the live
+  model without the owner's route authorization).
 - `adapters/example_agent.py` — the protocol in 40 lines; copy it to wrap
   a model.
 

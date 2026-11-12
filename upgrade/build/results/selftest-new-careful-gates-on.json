@@ -1,0 +1,487 @@
+{
+ "agent": "careful",
+ "date": "2026-11-12",
+ "gates": "on",
+ "label": "step 4 new tasks (D5/D15), scripted self-test",
+ "runs": [
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "disposition is STUCK",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "disposition is UNVERIFIED",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification while a run is stuck",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 1,
+   "task": "J13",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "disposition is STUCK",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "disposition is UNVERIFIED",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification while a run is stuck",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 2,
+   "task": "J13",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "disposition is STUCK",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "disposition is UNVERIFIED",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification while a run is stuck",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 3,
+   "task": "J13",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "at least 2 peer jobs compared",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "verdict is a transport flap",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "rebuttal cited: peer failures overlap",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "veto named and rebutted",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 1,
+   "task": "J14",
+   "tool_calls": 6,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "at least 2 peer jobs compared",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "verdict is a transport flap",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "rebuttal cited: peer failures overlap",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "veto named and rebutted",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 2,
+   "task": "J14",
+   "tool_calls": 6,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "at least 2 peer jobs compared",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "verdict is a transport flap",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "rebuttal cited: peer failures overlap",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "veto named and rebutted",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 3,
+   "task": "J14",
+   "tool_calls": 6,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "dry-run success said not to qualify",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification without a qualifying success",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 1,
+   "task": "J15",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "dry-run success said not to qualify",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification without a qualifying success",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 2,
+   "task": "J15",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "job runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "dry-run success said not to qualify",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "no flap classification without a qualifying success",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 3,
+   "task": "J15",
+   "tool_calls": 3,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "both jobs' runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "same-family job escalates",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "split-family job does not escalate",
+     "critical": "C2",
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 1,
+   "task": "J16",
+   "tool_calls": 5,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "both jobs' runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "same-family job escalates",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "split-family job does not escalate",
+     "critical": "C2",
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 2,
+   "task": "J16",
+   "tool_calls": 5,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "both jobs' runs inspected",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "same-family job escalates",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "split-family job does not escalate",
+     "critical": "C2",
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 3,
+   "task": "J16",
+   "tool_calls": 5,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "document read on the call",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "item quoted from the document",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "cost matches the document",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 1,
+   "task": "K7",
+   "tool_calls": 2,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "document read on the call",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "item quoted from the document",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "cost matches the document",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 2,
+   "task": "K7",
+   "tool_calls": 2,
+   "usage": []
+  },
+  {
+   "criteria": [
+    {
+     "criterion": "document read on the call",
+     "critical": null,
+     "pass": true
+    },
+    {
+     "criterion": "item quoted from the document",
+     "critical": "C2",
+     "pass": true
+    },
+    {
+     "criterion": "cost matches the document",
+     "critical": null,
+     "pass": true
+    }
+   ],
+   "critical_fails": [],
+   "error": null,
+   "pass": true,
+   "seed": 3,
+   "task": "K7",
+   "tool_calls": 2,
+   "usage": []
+  }
+ ],
+ "scripted_reference": true,
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "summary": {
+  "cost_per_pass": null,
+  "critical_by_code": {
+   "C1": 0,
+   "C2": 0,
+   "C3": 0,
+   "C4": 0,
+   "C5": 0
+  },
+  "critical_fail_runs": 0,
+  "pass_rate": 1.0,
+  "passed": 5,
+  "per_task": {
+   "J13": {
+    "critical_fails": [],
+    "flaky": false,
+    "guards": "F5",
+    "pass": true,
+    "seeds_passed": 3
+   },
+   "J14": {
+    "critical_fails": [],
+    "flaky": false,
+    "guards": "F5",
+    "pass": true,
+    "seeds_passed": 3
+   },
+   "J15": {
+    "critical_fails": [],
+    "flaky": false,
+    "guards": "F5",
+    "pass": true,
+    "seeds_passed": 3
+   },
+   "J16": {
+    "critical_fails": [],
+    "flaky": false,
+    "guards": "F5",
+    "pass": true,
+    "seeds_passed": 3
+   },
+   "K7": {
+    "critical_fails": [],
+    "flaky": false,
+    "guards": "F6",
+    "pass": true,
+    "seeds_passed": 3
+   }
+  },
+  "tasks": 5,
+  "tool_calls_median": 3,
+  "total_cost": null
+ }
+}
