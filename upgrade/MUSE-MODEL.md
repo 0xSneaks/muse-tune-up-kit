@@ -136,6 +136,6 @@ format, and a repeat ask changes the method.
 | Can crew and scheduled jobs run with a smaller context? | what every job costs |
 | The 31 scheduled jobs: names, purposes, last runs | layer 5 cannot be modeled past counts |
 | The 131 goal workspaces | whether layer 3 or layer 8 owns project state (today both do) |
-| 17 market-data skill bodies and 57 system skill bodies | those layer 2 verdicts rest on measurement or on names |
+| 57 system skill bodies | those layer 2 verdicts rest on measurement or on names |
 
-In the last row, 20 of the 37 custom skills were read in full; the 17 market-data playbooks were measured by script because their read lane stopped at a usage limit.
+All 37 custom skills are now read in full: 20 in the first pass, the 17 market-data playbooks in the follow-up (S-063..S-079).
