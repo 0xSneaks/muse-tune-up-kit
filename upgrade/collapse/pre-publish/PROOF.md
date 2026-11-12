@@ -211,7 +211,7 @@ the single remaining text.
 
 - Source atoms collapsed here (registry sizes, 60 atom rows
   including the subsumed A-143): 43,173 B.
-- CURRENT-STATE.md as drafted: 36,483 B — about 85% of the
+- CURRENT-STATE.md as drafted: 36,417 B — about 84% of the
   collapsed source. The publish chain estimates in the pair map
   summed to ≈16,400 B for the eight publish chains; as with
   lanes B2–B4, that estimate does not survive contact with the
