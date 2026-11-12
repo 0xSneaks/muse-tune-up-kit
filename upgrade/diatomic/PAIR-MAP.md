@@ -29,7 +29,7 @@ headings and sizes of a personal file.
 | P-U5 | A-045, A-068, A-086, S-058; and A-050, A-075, A-078 | bind verification to bytes not paths; path-only bar | A-045/A-068 carry the same title in two sections; A-050 and A-078 restate A-075 | one `verification-core` rule (see P-D2) | TITLE (rules), DESCRIPTION-LINE (skill) |
 | P-U6 | chain C-PUB-WAIVER (9 atoms, 7,575 B), A-081, A-089, A-093, A-101, S-059, P-14 line 4, L-4 | whose word counts as the owner's | scattered copies | S-059 as the single home | TITLE |
 | P-U7 | A-017, S-061, S-086, spec LEG-INVENTORY | split work into legs, verify each | — | A-017's rule as the core; the two skills cite it | READ (A-017), DESCRIPTION-LINE (skills) |
-| P-U8 | S-063 … S-079 | CORRECTED after measurement: the 17 market-data playbooks share a recurring phrase but only one identical paragraph; removable duplicate text is 16,283 B of 649,562 B (2.5%) | nothing | no merge; they stay on-demand as they are | MEASURED by script |
+| P-U8 | S-063 … S-079 | CORRECTED after measurement: the 17 market-data playbooks share a recurring phrase but only one identical paragraph; removable duplicate text is 16,283 B of 649,562 B (2.5%) | nothing | no merge; they stay on-demand as they are | MEASURED by script; CONFIRMED by the full read (second run) |
 | P-U9 | A-031, P-12 last paragraph, X-6 §4 | batch all approvals before the flow | A-031 | P-12 | READ |
 | P-U10 | A-036, P-17 item 4, S-086 | docs or ground truth before claiming a mechanic | A-036 | S-086, one kernel line | READ |
 | P-U11 | P-10, L-1, L-4, L-6 | call discipline | the lessons, once carried | three kernel lines + skill `comms-live` | READ |
@@ -98,7 +98,7 @@ Names are generic; evidence ids point at where the dependence is stated.
 | PL-4 | frontier reviewer agent on a consumer subscription | 5-hour and weekly meters | weekly meter at 91% on 2026-11-12; **one read lane of this analysis stopped on the 5-hour limit** | none | P-12, P-15, coordination usage file |
 | PL-5 | other chat-agent subscriptions used as lanes | per-plan usage | one at 40% on its reset day, 2026-11-10 | stated behavior is "blocked → stop and tell the owner" | M-3, addendum |
 | PL-6 | code-hosting platform as the coordination bus | API limits; an approval card per connector call | 16 of 20 approval cards in one day were for this connector | stored-token path, tested once | X-6 |
-| PL-7 | market-data API behind a CLI | rate limits (mentioned 96 times across the 17 playbooks) | none on record | not read (lane stopped) | S-063 … S-079 |
+| PL-7 | market-data API behind a CLI | tiered leaky bucket (three tiers; a full wallet run weighs more than the middle tier); a 429 starts a ban that repeated calls extend to about 5 min; finest candle resolution and some calls are paid-tier. 15 of 17 state a limit rule (stop on 429, retry once at most, pacing, or never loop); 2 state none (S-063, S-067) | none on record | per skill, no shared one: 10 of 17 state a data fallback (cannot-assess, partial report, on-chain-only card); none falls back to another provider, and web lookup is forbidden in S-069. The two money skills never auto-resubmit | S-063 … S-079 |
 | PL-8 | chain data / RPC API behind a key | provider limits | none on record | none stated in the execution skill | S-083, A-057 |
 | PL-9 | hosted browser and logged-in web sessions | session lifetime | — | yes: the timed-session skill sizes work to the session | S-094, S-060 |
 | PL-10 | messenger mini-app host, web hosting, social networks | plan and platform rules | — | partial or none | S-062, S-092 |

@@ -9,7 +9,7 @@ Sources: private corpus at `965981a`; public coordination repo at
 |---|---|
 | Registry rows ÷ atoms | 379 ÷ 379 = 100% (108 manifest atoms, 271 sub-atoms) |
 | Rule atoms read in full | 220 of 220 |
-| Custom skills read in full | 20 of 37; the other 17 measured by script |
+| Custom skills read in full | 37 of 37 (the 17 market-data skills in a second run) |
 | BLOCKED-ON-CORPUS | 59 (57 system skill bodies, the scheduled-job list, the goal workspaces) |
 | Pair findings, system level (`PAIR-MAP.md`) | 59: 14 duplication, 13 contradiction, 11 dependency, 7 gap, 8 platform, 6 coordination |
 | Pair findings inside the rules file and skills (`PAIR-MAP-RULES.md`) | 125: 65 contradiction, 27 duplication, 21 gap, 12 dependency. Each lane reported its 25 strongest, so this is a cap, not a census |
@@ -139,7 +139,6 @@ sections.
 | System skill bodies | 57 | their text, or confirmation they are platform-owned |
 | Scheduled-job list | 31 jobs | name, schedule, purpose, last status per job |
 | Goal workspaces | 131 | a list with last-touched dates |
-| Market-data skill bodies (not read; measured) | 17 | re-running one read lane once the usage limit resets |
 | Personal files and the memory tree (structure only, by design) | 5 files + 129 files | stays on Muse's machine; spec 02's backfill does the per-file work |
 
 ## Calibration
@@ -152,5 +151,6 @@ guessed 40–60%. One of my own first-edition findings was wrong (the
 shared preamble in the market-data skills: 2.5%, not a merge candidate).
 The step-1 code I built has a real defect found by running it on the
 memory tree (D29). Treat the lane outputs the same way: they are one
-read each, unreviewed by a second model, because the usage limit that
-stopped one lane also left no room for a review pass.
+read each. A second run reviewed a sample of them against the source
+(review tally in `REVIEW-PASS.md`) and read the 17 market-data skills in
+full.
