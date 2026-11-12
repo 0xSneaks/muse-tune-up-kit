@@ -4,7 +4,7 @@ Python 3, standard library only. No network, no accounts, no secrets.
 
 | Step | Status | Where |
 |---|---|---|
-| 1. Gate log, claims block, six gates | BUILT and tested as a library. **Not wired into Muse's live runtime** (no access from the build machine) | `muse_gates/` |
+| 1. Gate log, claims block, seven gates | BUILT and tested as a library. **Not wired into Muse's live runtime** (no access from the build machine) | `muse_gates/` |
 | 2. Fixtures, runner, smoke set | BUILT and tested | `evalrig/`, `adapters/` |
 | 3. Baseline run, frozen | **BLOCKED here.** Must run on Muse's machine; procedure below | — |
 
@@ -12,7 +12,7 @@ Python 3, standard library only. No network, no accounts, no secrets.
 
 ```
 cd upgrade/build
-python3 -W error -m unittest discover -s tests      # 16 tests
+python3 -W error -m unittest discover -s tests      # 35 tests
 python3 -m evalrig.runner --agent careful --gates on  --out /tmp/x.json
 python3 -m evalrig.runner --agent naive   --gates off --out /tmp/y.json
 ```
@@ -38,7 +38,26 @@ state-check function), the owner's approval records, and a worker
 registry. `evalrig/fixtures.py` `META` is a worked example for 11 tools.
 
 Behaviors worth knowing before wiring:
-- An approval matches one exact call (tool + arguments) and is used once.
+- Gated tools carry one of seven gate types: spend, trade, send-as-owner,
+  deploy, device, delete, credential. Any other type is refused (D10).
+- Three approval kinds (D10). Single-use: one exact call, used once.
+  Standing grant: a tool/argument glob scope for one gate type, never
+  consumed, and never honoured for spend, trade or credential (a choice made
+  here for Muse to accept or reject). Delegated approval: from a reviewer
+  the owner lists in `delegates`, bound to the hash of the exact call, used
+  once.
+- MASKED-VALUE (D9). A masked value is never passed as an argument.
+  `verify_value` ends in value-verified (fingerprint match on a readable
+  value, or on a functional probe known not to consume the value),
+  presence-verified/value-unverified (a masked read, or a probe barred
+  because consumption cannot be ruled out), or blocked (absent or
+  mismatch). A presence-only leg cannot be DONE; a blocked one becomes
+  BLOCKED. Only field paths and keyed fingerprints are logged.
+- Claim labels are VERIFIED / INTENT / INFERENCE / UNKNOWN; ASSUMPTION is
+  read as INFERENCE, UNVERIFIED and UNCONFIRMED as UNKNOWN (D7).
+- A card number needs an issuer prefix, a valid Luhn check and a card word
+  nearby; a seed phrase is exactly 12 or 24 short words that do not read as
+  prose. Long numeric ids and sentences about seed phrases pass (D29).
 - A non-idempotent tool with no state-check route is never retried.
 - A DONE leg is rewritten to FAILED if its evidence call failed read-back,
   and to PENDING if the evidence id is not a successful call in the trace.

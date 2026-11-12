@@ -1,4 +1,4 @@
-"""Unit tests for the six gates, including survival of state across a restart."""
+"""Unit tests for the gates, including survival of state across a restart."""
 import os, sys, tempfile, unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from muse_gates import GatedTools, Store, claims, secret_scan, startup_alive
