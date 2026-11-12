@@ -38,6 +38,14 @@ protection; the four contradictions were an ambiguity (R-047), a
 missing cap (R-051), a missing procedure step (R-076) and inverted
 wording (R-077), and each resolution is additive or clarifying.
 
+## Addendum (step 7, lane B8)
+
+A-091 (553 B) — the cross-check observable-types clause — had no
+collapsed home (pre-publish PROOF FLAG-2); it is now homed in §3
+(competence per leg type; a blind source's agreement is vacuous),
+closing that gap. Reflected in skill `verification-core` under
+LEG-INVENTORY.
+
 ## Size accounting
 
 - Source atoms (registry sizes, 15 atoms): 12,192 B.

@@ -4,7 +4,9 @@ The shared verification rules every domain skill loads: read-back,
 leg-by-leg reporting, leg inventories, continuing legs, verified-live,
 vantages, and the digest standard. Collapsed from atoms A-016, A-017,
 A-018, A-019, A-097, A-102, A-145, A-156, A-184, A-191, A-193, A-202,
-A-205, A-213, A-219 of the rules file. Every positional pointer in the
+A-205, A-213, A-219 of the rules file. (A-091, the cross-check
+observable-types clause, was homed in §3 at step 7 — see PROOF.md
+addendum.) Every positional pointer in the
 source atoms is resolved into plain text below. This file is a draft
 in the upgrade clone only; the live rules file is unchanged.
 
@@ -78,6 +80,15 @@ state corroborates only when its own data upstream is shown distinct
 from the system under test; a wallet, explorer or dashboard fed by
 the same upstream is the same source, and unestablishable upstream
 distinctness means UNVERIFIED.
+
+Competence is per leg type, like distinctness (A-091). A cross-check
+corroborates an inventory only for leg types the corroborating source
+can in principle enumerate or observe; a source blind to a leg type —
+a code repo cross-checked for dashboard-only settings it cannot
+contain — corroborates nothing for that type: its agreement is
+vacuous, not corroboration. Coverage competence is established
+out-of-band, per leg type; legs whose only cross-check is a blind
+source remain UNVERIFIED.
 
 If no authoritative inventory exists, say so and treat establishing
 the inventory itself as a PENDING leg.
