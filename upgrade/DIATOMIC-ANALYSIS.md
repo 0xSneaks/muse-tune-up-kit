@@ -82,3 +82,7 @@ first draft went blind. Do not repeat it.)
 Report per deliverable: commit hash, file list, atom coverage count
 (rows ÷ manifest atoms), and the BLOCKED-ON-CORPUS count. To Sneaks AND to Muse.
 Nothing is "done" until Muse verifies the read-back.
+
+## Addendum in force (2026-11-12)
+
+`upgrade/ADDENDUM-OWNED-ORCHESTRATION.md` — owned orchestration / platform-limit independence. Its four questions are part of the pair pass, and proposed class F8 is judged there (stands alone, or folds into F7 with the merged carrier named). No build-order change: steps 1–3 remain the only authorized build steps.
