@@ -22,6 +22,8 @@ line, with no trailing newline. All 50 rows matched a line.
 | WRONG (corrected in place) | 0 | 4 | 0 | **4** |
 | UNCLEAR (owner decision) | 0 | 4 | 1 | **5** |
 
+Owner rulings, 2026-11-12 (confirmed by Sneaks): R-019, R-020, R-050 and A-216 are RESOLVED-BY-OWNER. **K-11 is still open.**
+
 Wrong in the sample: 4 of 50 (8%), all in the resolution column, all where a
 resolution offered a looser option than the source text. None of the four
 DELETE or 20 MERGE verdicts was wrong.
@@ -41,8 +43,8 @@ DELETE or 20 MERGE verdicts was wrong.
 | R-016 | **WRONG** | The "base permission stands" option would undo the later lock. Corrected |
 | R-017 | **WRONG** | Deleting the absolute sentence would drop it for broadcast, unknown-outcome and non-durable claims. Corrected to scope it instead |
 | R-018 | CONFIRMED | Stricter |
-| R-019 | UNCLEAR | Money: fail-closed versus exact-key locking under an unverified price. The later atom qualifies but does not replace. Owner decides; fail-closed holds until then |
-| R-020 | UNCLEAR | Same decision as R-019 |
+| R-019 | UNCLEAR → **RESOLVED-BY-OWNER** | Money: fail-closed versus exact-key locking under an unverified price. Owner, 2026-11-12: "Depends on circumstance". Fail-closed is the automatic default; the exact-key exception is the owner's per-case call; no agent self-grants it |
+| R-020 | UNCLEAR → **RESOLVED-BY-OWNER** | Same ruling as R-019 |
 | R-022 | CONFIRMED | The later atom makes the search part of the atomic claim |
 | R-023 | CONFIRMED | Keeps fail-closed and the ban on invented references |
 | R-025 | CONFIRMED | Removes a looser provenance path |
@@ -56,7 +58,7 @@ DELETE or 20 MERGE verdicts was wrong.
 | R-046 | CONFIRMED | Stricter |
 | R-047 | CONFIRMED | Stricter |
 | R-049 | CONFIRMED | The later atom scopes the test itself |
-| R-050 | UNCLEAR | The resolution adds wording the source does not have ("hands over"). Whether operation end may close a public mutable leg is the owner's call |
+| R-050 | UNCLEAR → **RESOLVED-BY-OWNER** | The resolution added wording the source does not have ("hands over"). Owner, 2026-11-12: "When it's done it's done". Operation end closes the leg, as the source says |
 | R-052 | CONFIRMED | The later atom names the scope itself |
 | K-09 | CONFIRMED | Keeps the stricter re-send criterion |
 | K-11 | UNCLEAR | The persona-file grant covers merges and the playbook bars them. Owner decides. The second-reviewer rule for wallet, signing and auth code stays either way |
@@ -79,7 +81,7 @@ DELETE or 20 MERGE verdicts was wrong.
 | A-196 | CONFIRMED | |
 | A-199 | CONFIRMED | |
 | A-214 | CONFIRMED | Merged text must carry the 1 fps floor and the exhaustive class |
-| A-216 | UNCLEAR | The merge is right, but the merged text waits on R-019 |
+| A-216 | UNCLEAR → **RESOLVED-BY-OWNER** | The merge is right; the merged text carries the R-019 ruling |
 
 ## Not reviewed
 
