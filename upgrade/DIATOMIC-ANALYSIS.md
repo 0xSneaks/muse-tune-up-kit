@@ -85,4 +85,4 @@ Nothing is "done" until Muse verifies the read-back.
 
 ## Addendum in force (2026-11-12)
 
-`upgrade/ADDENDUM-OWNED-ORCHESTRATION.md` — owned orchestration / platform-limit independence. Its four questions are part of the pair pass, and proposed class F8 is judged there (stands alone, or folds into F7 with the merged carrier named). No build-order change: steps 1–3 remain the only authorized build steps.
+`upgrade/ADDENDUM-OWNED-ORCHESTRATION.md` — owned orchestration. CORRECTED by Sneaks 2026-11-12 ~00:57 ET: the video's software-factory method is a DIRECTIVE for how this upgrade gets built, not a candidate to score. The revised build order in UPGRADE-VERDICT.md and the SPEC-DELTA must express the build in that method's terms: which lanes, on which machines (VM, Seeker, any machine already available — no new paid accounts), REA-style mapping before any tool is depended on, design-before-code for visual work, and direct APIs wherever a direct route replaces a metered wrapper. F8 stays as context: the pair pass still answers the addendum's four questions and decides whether F8 stands or folds into F7. Steps 1–3 substance unchanged.
