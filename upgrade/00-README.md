@@ -11,7 +11,7 @@ needs a frontier model at runtime.
 | 4 | `04-router-policy.md` | cost |
 | 5 | `05-gates-library.md` | F1, F2, F5, F7 |
 | 6 | `06-gainshare-playbook.md` | revenue seed |
-| 7 (candidate) | Owned orchestration — `ADDENDUM-OWNED-ORCHESTRATION.md` | F8 (new, proposed) + F7 |
+| 7 (method) | Owned orchestration — the BUILD METHOD for this upgrade, per Sneaks's directive 2026-11-12: Muse is the single orchestrator; builder lanes run in parallel on separate machines (VM + Seeker + machines already on hand); REA-style mapping before depending on a tool; design-before-code for visual work; direct APIs over metered platform wrappers. NOT a product and NOT a judged candidate — `ADDENDUM-OWNED-ORCHESTRATION.md` | F8 (context) + F7 |
 
 Inputs: `CONTEXT-PACK.md` (architecture and measured baselines) and
 `RETAG-BRIEF.md` (the delta against the first draft). The specs were first
