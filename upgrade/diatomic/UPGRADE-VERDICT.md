@@ -14,7 +14,7 @@ Sources: private corpus at `965981a`; public coordination repo at
 | Pair findings, system level (`PAIR-MAP.md`) | 59: 14 duplication, 13 contradiction, 11 dependency, 7 gap, 8 platform, 6 coordination |
 | Pair findings inside the rules file and skills (`PAIR-MAP-RULES.md`) | 125: 65 contradiction, 27 duplication, 21 gap, 12 dependency. Each lane reported its 25 strongest, so this is a cap, not a census |
 | Amendment chains | 37; 126,753 B raw, about 48,400 B after collapse (lane estimates) |
-| Spec deltas | 32, one withdrawn |
+| Spec deltas | 33 (D1–D32 and D22a), one withdrawn |
 
 ## The verdict in six lines
 
