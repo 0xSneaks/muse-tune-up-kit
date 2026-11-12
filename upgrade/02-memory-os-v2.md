@@ -1,4 +1,4 @@
-# 2. Memory OS v2 (kills F4)
+# 2. Memory OS v2 (kills F4; lessons pipeline covers F6 and feeds F3)
 
 **Replaces:** 134 hand-maintained files where the same fact lives in
 several places and a correction reaches only the one being looked at.
@@ -140,6 +140,10 @@ Staleness audit checks. All are scripts except where a tier is named.
 | S7 | two entity ids sharing an alias (cheap tier confirms same person) | merge per §2.2 |
 | S8 | LIVE > 6 KB, or any view over its budget | regenerate with tighter cut |
 | S9 | secret patterns anywhere in the tree | redact, alert owner to rotate |
+| S10 | lessons capture rate (§2.8) | uncaptured incidents older than 14 days → assign a carrier now |
+| S11 | goal workspaces with no tracked item (baseline: 131 on disk, 78+ tracked) | move to `archive/` after 30 days unreferenced |
+| S12 | coordination-board handoffs closed over 14 days ago (baseline: 730 files) | fold into the monthly digest, archive the file |
+| S13 | size inventory: the tree is 25 MB for 134 markdown files, so most bytes are not notes | list the top 20 files by size; non-memory bulk moves out of the tree |
 
 The audit never deletes: it demotes, moves, or flags. Its output is one
 report: counts per check, what it fixed, and at most five lines for the
@@ -159,7 +163,53 @@ the health watcher, so a silent audit failure is itself detected.
 6. Run eval tasks M1–M10 against `memory-v2/`. Switch over when they pass;
    keep the old tree read-only for 30 days.
 
-## 2.7 Cut from this section
+## 2.7 Baselines this replaces (pack §2)
+
+Live memory file 22,247 bytes → generated LIVE at 6 KB or less. Nightly
+alignment synthesis 34,150 bytes, injected every turn → no longer
+injected: the consolidation job writes its changes into the ledger, and
+LIVE is the only memory text in standing context. 41 dated logs, 48
+person files, 39 group files → backfilled per §2.6.
+
+## 2.8 Lessons pipeline (F6 root cause; stops F3 at the source)
+
+**Replaces:** a hand-written lessons file (25 lines, 7 lessons in about
+5 weeks) on one side, and on the other a rules file where every lesson
+became permanent injected text (35 amendment rounds).
+**With:** automatic incident capture, and a rule that a lesson must land
+in a carrier that is not standing prose.
+
+1. **Capture is automatic.** Each of these appends one line to
+   `memory/lessons.jsonl` with no decision by the agent: an operator
+   correction of behavior (cheap-tier classifier on each operator turn);
+   any gate `fail`; any eval task fail; a router log line with
+   `outcome_source: owner_correction`; a STARTUP-ALIVE or
+   JOB-TRIAGE-CLASSIFY incident.
+
+```json
+{"id":"l-0193","ts":"…","source":"operator_correction","fclass":"F6",
+ "what":"repeated full status on second ask","evidence":"turn-5531",
+ "pattern":"status-repeat","carrier":null,"captured":false}
+```
+
+2. **Weekly, cluster by `pattern`** (workhorse tier). Each cluster with no
+   carrier gets one, chosen in this order of preference:
+   executable check → eval task → one line in a module, inside its 6 KB
+   budget → kernel line, only by swapping another line out.
+3. **A lesson is captured** only when it has a carrier and an eval task
+   that reproduces the incident. Until then it stays open.
+4. **Recurrence** of a captured pattern means the carrier failed: move it
+   one step up the preference order and log the recurrence.
+5. **Capture-rate check (S10)**, in the weekly audit:
+   - incidents logged this week (baseline is about 1.4 lessons a week);
+   - share of incidents older than 14 days that are captured — target 80%;
+   - alarm if gate fails this week > 0 and incidents logged = 0, because
+     that means the pipeline itself is broken.
+
+The standing context does not grow when a lesson is learned. That is the
+structural fix for F3; the kernel byte cap in CI enforces it.
+
+## 2.9 Cut from this section
 
 Vector search over memory, and confidence scores finer than the four
 classes. Neither is needed to kill F4; both add tuning work.

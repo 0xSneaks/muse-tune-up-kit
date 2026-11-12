@@ -11,7 +11,7 @@ concrete model; the policy survives model releases unchanged.
 
 | Tier | Role |
 |---|---|
-| frontier | on-demand design review only; never scheduled, never in a task path |
+| frontier | the credit-limited evaluator agent: reference runs for the eval suite and owner-requested design review; never scheduled, never in a task path |
 | strong | planning, consequential execution, conflict adjudication |
 | workhorse | routine tool work, extraction, triage |
 | cheap | classification, yes/no checks, formatting |
@@ -27,7 +27,9 @@ concrete model; the policy survives model releases unchanged.
 | Research: synthesis and answer | strong | — | claim check by cheap | 80k / 5 |
 | Memory extraction (consolidation) | workhorse | strong | no | 100k per log batch / 0 |
 | Memory conflict adjudication, correction sweep | strong | owner | no | 80k / 30 |
-| Job triage | workhorse | strong | no | 100k / 20 |
+| Job triage (after JOB-TRIAGE-CLASSIFY has run as a script) | workhorse | strong | no | 100k / 20 |
+| Crew sub-agent, one bounded task | workhorse | strong | CREW-REPORT-UNVERIFIED spot-check by the parent | 60k / 10 |
+| Live-call replies and status | workhorse | — | no | 4k / 0 |
 | Multi-leg execution, 3+ legs, no gated leg | strong plans, workhorse executes legs | strong executes | no | 250k / 40 |
 | Consequential: spend, public post, send-as-owner, delete, credential, deploy | strong | owner | **yes** | 250k / 40 |
 | Long-form writing | strong | — | no | 120k / 5 |
@@ -135,7 +137,15 @@ A script, run on the first of the month:
 7. If any class shows a critical fail in production during the month, it
    moves up one tier immediately, outside the monthly cycle.
 
-## 4.7 Cut from this section
+## 4.7 Bench eligibility
+
+The subscription bench varies in quality. A bench model may fill a tier
+for a task class only after passing that class's eval rows at the class
+threshold with zero critical fails. "Re-benchmarking" means re-running
+those rows; a model that drops below threshold loses the slot at once and
+the class falls back to the direct-API workhorse family.
+
+## 4.8 Cut from this section
 
 Per-provider pricing tables (they change; cost is computed from the log
 and `router.yaml` prices) and latency-based routing.

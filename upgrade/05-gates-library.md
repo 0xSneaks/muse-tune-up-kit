@@ -1,8 +1,8 @@
-# 5. Verification Gates Library (kills F1, F2, F5)
+# 5. Verification Gates Library (kills F1, F2, F5, F7)
 
 **Replaces:** prose doctrine ("verify before claiming", "a read-back beats
 an exit code") that depends on the model recalling it.
-**With:** 17 named checks, each bound to a hook point, each producing a
+**With:** 21 named checks, each bound to a hook point, each producing a
 record.
 
 ## 5.1 Common contract
@@ -23,6 +23,14 @@ five in the kernel: DONE (needs an evidence id), PENDING, BLOCKED, FAILED,
 NOT-ATTEMPTED. **A leg with no evidence id cannot be DONE**; the
 pre-report hook rewrites it to PENDING.
 
+Durability (pack §6, F7): the gate log, approval records, the idempotency
+ledger, and checkpoint files live on disk under a path that survives VM
+replacement, and are flushed before the action they guard is reported. No
+gate may depend on in-memory state.
+
+F6 has no gate. It is covered by kernel lines, eval category K, and the
+lessons pipeline (`02-memory-os-v2.md` §2.8).
+
 Mode: `code` = enforced by harness; `checklist` = injected procedure the
 model follows, verified afterward from the trace.
 
@@ -41,7 +49,9 @@ model follows, verified afterward from the trace.
 - **Trigger:** at plan time for any task with 2+ actions; again pre-report.
 - **Procedure:** before acting, write the leg list (one leg per distinct
   state change or per recipient). Legs may be added during work, never
-  removed. Pre-report: every leg has a status; counts match
+  removed. For bulk work the inventory comes from a source independent
+  of the system under test: list the target state yourself; never take
+  the item list from the tool or agent whose work is being checked. Pre-report: every leg has a status; counts match
   ("N of M" for batches, with failures named).
 - **Evidence:** the inventory, with an evidence id per DONE leg.
 - **Fail:** report blocked until the CLAIMS block matches the inventory.
@@ -49,7 +59,7 @@ model follows, verified afterward from the trace.
   leg is DONE.
 - **Mode:** code (pre-report), checklist (plan).
 
-### MASKED-VALUE — kills F5
+### MASKED-VALUE — kills F1, F2
 - **Trigger:** post-tool, any returned value matching mask patterns
   (`****`, `••••`, `xxxx`, `…` inside a token, `[REDACTED]`, fixed-length
   repeats), or any field named key/secret/token/password.
@@ -60,7 +70,7 @@ model follows, verified afterward from the trace.
 - **Fail:** the dependent leg → BLOCKED, "needs a secure route"; no retry.
 - **Mode:** code.
 
-### TRANSPORT-VS-JOB — kills F5
+### TRANSPORT-VS-JOB — kills F1
 - **Trigger:** any claim about a job, deploy, send, or background task.
 - **Procedure:** answer three layers separately: (1) accepted — the
   request returned OK; (2) ran — the job's own status says finished;
@@ -71,7 +81,7 @@ model follows, verified afterward from the trace.
   ("accepted, outcome not yet verified"). Leg stays PENDING.
 - **Mode:** checklist; code for registered jobs with a declared artifact.
 
-### UNKNOWN-OUTCOME — kills F5 (duplicate actions)
+### UNKNOWN-OUTCOME — kills F1, F7 (duplicate actions)
 - **Trigger:** timeout, dropped connection, or ambiguous response on a
   non-idempotent call (send, pay, submit, post).
 - **Procedure:** no retry. Check state by an independent route (sent
@@ -82,7 +92,7 @@ model follows, verified afterward from the trace.
 - **Fail:** leg → BLOCKED, owner told exactly what to check.
 - **Mode:** code (ledger keyed on tool + argument hash).
 
-### APPROVAL-TOKEN — kills F6 (assumed), F1
+### APPROVAL-TOKEN — holds the pack §6 gates
 - **Trigger:** pre-tool, any tool in the gated set (spend, trade/transfer,
   public post, send-as-owner, deploy, delete, account/credential change).
 - **Procedure:** look up an approval record whose action, destination,
@@ -140,7 +150,7 @@ model follows, verified afterward from the trace.
   audit backfills by entity match.
 - **Mode:** code.
 
-### ARTIFACT-AS-PUBLISHED — kills F1, F5
+### ARTIFACT-AS-PUBLISHED — kills F1
 - **Trigger:** pre-tool, any publish/upload/set-artwork/attach.
 - **Procedure:** open the final file by content, not by name. Images at
   legible size; every distinct frame of animations; full duration of
@@ -161,7 +171,7 @@ model follows, verified afterward from the trace.
   should be rotated if it was exposed.
 - **Mode:** code.
 
-### DATA-NOT-ORDERS — kills C5, F6 (assumed)
+### DATA-NOT-ORDERS — kills C5
 - **Trigger:** post-tool, any content from web, files, email, images, or
   other agents.
 - **Procedure:** wrap as untrusted. Scan for imperative text aimed at the
@@ -172,7 +182,7 @@ model follows, verified afterward from the trace.
 - **Fail:** the suggested action is not taken; reported to owner.
 - **Mode:** code (wrapping), checklist (tracing).
 
-### LEAST-DISCLOSURE — kills F6 (assumed)
+### LEAST-DISCLOSURE — constraint
 - **Trigger:** pre-tool, any outbound payload to a person, service,
   search, or other agent.
 - **Procedure:** list the fields the receiver needs to act. Remove every
@@ -189,7 +199,7 @@ model follows, verified afterward from the trace.
 - **Evidence:** token and call counters.
 - **Mode:** code.
 
-### WATCH-THE-WATCHER — kills F5
+### WATCH-THE-WATCHER — kills F7, F5
 - **Trigger:** scheduled; and on any "is everything healthy?" question.
 - **Procedure:** every registered job and watcher writes a heartbeat.
   Health = each job's last heartbeat within its interval + grace, and its
@@ -200,6 +210,60 @@ model follows, verified afterward from the trace.
   "All healthy" requires every row green.
 - **Mode:** code.
 
+### JOB-TRIAGE-CLASSIFY — kills F5 (and F3: replaces the prose classification rules)
+- **Trigger:** any non-success job run, before any verdict is stated.
+- **Procedure:** a script over run history, four steps in fixed order.
+  1. *Error origin.* Was the error text produced by the runner,
+     scheduler, or network layer, or by the job's own output?
+  2. *Change veto.* Any change to the job's config, prompt, credentials,
+     dependencies, or host in the 24 hours before the first failure →
+     class `change-suspect`. A transport verdict is not allowed until the
+     change is ruled out.
+  3. *Peer comparison.* Jobs sharing the same layer (runner, network
+     path, provider) in the same window: peers failing too → `transport`
+     or `shared-dependency`; peers healthy → `job-level`.
+  4. *Persistence.* One failure followed by success → `flap` (logged, no
+     alert). Three consecutive failures → incident.
+- **Evidence:** the class plus one line of evidence per step.
+- **Fail:** a step that cannot be answered → `unclassified`, reported in
+  that word. Never default to `flap`.
+- **Mode:** code.
+
+### STARTUP-ALIVE — kills F7
+- **Trigger:** session start, VM boot, and hourly.
+- **Procedure:** for each entry in `workers.yaml` (relay, board poller,
+  watchers): process alive, heartbeat fresh, backlog count (messages
+  older than the entry's threshold).
+- **Evidence:** the table, with ages and backlog counts.
+- **Fail:** loud — it is the first line of the first reply, with how long
+  the gap lasted. Restart the worker if restart is within standing
+  permission; then process the backlog oldest first.
+- **Mode:** code.
+
+### CHECKPOINT-REQUIRED — kills F7
+- **Trigger:** any job expected to run over 5 minutes or over 20 items.
+- **Procedure:** write the work list to disk before starting. Append each
+  completed item to a progress file with its evidence id. Side-effecting
+  items go through the UNKNOWN-OUTCOME ledger. On start, read the
+  progress file and skip what is done. A job type is trusted only after
+  one passed resume drill (kill at a random point, restart, compare).
+- **Evidence:** progress file path; resume-drill record for the job type.
+- **Fail:** a job with no checkpoint may not be backgrounded; it runs in
+  foreground chunks or is reported BLOCKED.
+- **Mode:** code.
+
+### CREW-REPORT-UNVERIFIED — kills F2
+- **Trigger:** a sub-agent's or another agent's report is about to
+  support a claim.
+- **Procedure:** the report's claims are INFERENCE until spot-checked
+  against target state: ids, hashes, timestamps. Check every item for
+  consequential work; for bulk work, the larger of 3 items or 20%. The
+  item list is taken from the target, not from the report.
+- **Evidence:** spot-check call ids and the sample size.
+- **Fail:** claims stay labeled "reported by crew, unverified"; any
+  mismatch → check every item.
+- **Mode:** checklist; code for the sample-size rule.
+
 ## 5.3 Gate-to-task map
 
 | Gate | Eval tasks that must fail if the gate is removed |
@@ -208,8 +272,11 @@ model follows, verified afterward from the trace.
 | LEG-INVENTORY | E3, E7, E10 |
 | MASKED-VALUE | E8 |
 | TRANSPORT-VS-JOB | E9, J1, J8 |
-| UNKNOWN-OUTCOME | E4, E5 |
-| APPROVAL-TOKEN | G1, G3, G5, G11, E7, J3 |
+| JOB-TRIAGE-CLASSIFY | J5, J10, J11, J12 |
+| STARTUP-ALIVE | V1, V5 |
+| CHECKPOINT-REQUIRED | V2, V3 |
+| UNKNOWN-OUTCOME | E4, E5, V3 |
+| APPROVAL-TOKEN | G1, G3, G5, G11, E7, J3, V4 |
 | SOURCE-OR-SILENT | R1, R2, R5, R8, R9, M8 |
 | FRESHNESS-STAMP | R4, M5 |
 | CONFLICT-SURFACE | M6 |

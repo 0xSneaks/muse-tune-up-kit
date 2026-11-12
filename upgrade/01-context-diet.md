@@ -6,10 +6,33 @@
 relevant to the current action, and anything a script can enforce stops
 depending on attention at all.
 
-The rules file was not available (see `00-README.md`), so this spec gives
-the classification procedure and the layer contracts, not a per-paragraph
-verdict. The split percentages below are INFERENCE to be replaced by the
+The pack gives the rules file's size and history, not its text, so this
+spec gives the classification procedure and the layer contracts. The
+per-paragraph verdicts are produced in step M0 on the machine that holds
+the file. The split percentages below are INFERENCE to be replaced by the
 manifest counts from step M0.
+
+## 1.0 Scope: all standing context, not only the rules file
+
+Measured baseline (pack §2), injected before any user message:
+
+| File | Baseline bytes | Target | How |
+|---|---|---|---|
+| Operating rules (AGENTS.md), 35 amendment rounds | 144,702 | 0 standing; content split across L0–L3 | this section |
+| Persona (SOUL.md) | 14,507 | ≤ 1.5 KB inside the kernel | laws and gates stay; voice guidance moves to `mod-style-long` and `mod-comms-live` |
+| Live memory (MEMORY.md) | 22,247 | ≤ 6 KB, generated | `02-memory-os-v2.md` |
+| Identity + user + tools | ~7,000 | ≤ 2 KB | tool notes move to per-connector modules |
+| Nightly alignment synthesis | 34,150 | 0 standing | its changes are written to the fact ledger; the text itself is archive |
+| **Total** | **222,578** | **≤ 16 KB typical, 20 KB cap** | about a 93% cut |
+
+Context profiles — the baseline taxes every sub-agent and cron with the
+full load. After the diet:
+
+| Profile | Gets |
+|---|---|
+| Main and project chats | kernel + triggered modules + LIVE |
+| Crew sub-agent | a 2 KB crew kernel (claim vocabulary, data-not-orders, secrets, "you hold no approval authority") + the one module for its task; no memory unless the task needs a named fact |
+| Scheduled job | crew kernel + that job's module + its own prompt |
 
 ## 1.1 Layers
 
@@ -45,8 +68,10 @@ and stop at the first yes:
    is irreversible and no code path can catch it first. Failing both, it
    goes to the nearest module.
 
-Expected split by bytes (INFERENCE): kernel ~5%, modules ~35%, executable
-~15%, archive or deleted ~45%.
+Expected split by bytes (INFERENCE): kernel ~5%, modules ~30%, executable
+~25%, archive or deleted ~40%. The executable share is raised because the
+pack says almost all of the file is verification legislation and that the
+job-classification rules are a large chunk of it.
 
 Output of classification is `rules-manifest.jsonl`, one line per chunk:
 
@@ -72,7 +97,8 @@ A chunk with no eval task either gets one or is a candidate for deletion.
 | Gate index | 1.5 KB | one line per gate in `05-gates-library.md`: name → trigger |
 | Module index | 1.5 KB | one line per module: id → when it loads |
 | Unknown-outcome rule | 0.3 KB | check state by another route before repeating |
-| Slack | 1.0 KB | — |
+| Communication (F6) | 0.4 KB | wait for the complete message; verdict before agreement; on calls, deltas only |
+| Slack | 0.6 KB | — |
 
 The kernel names gates; it does not describe their procedures. Procedures
 live in code (L2) or in the module that loads with the triggering tool.
@@ -97,7 +123,9 @@ Trigger precedence: (T1) pre-tool hook — tool name maps to module;
 | `mod-jobs` (scheduled jobs, triage, health) | schedule-create/update, job-status | ops | job, cron, failed, down, health |
 | `mod-research` (sources, citation, freshness) | search, fetch | research | find out, look up, price, is it true |
 | `mod-memory` (writes, corrections, people/groups) | memory-write, memory-correct | memory | remember, actually, no it's, correct |
-| `mod-longrun` (background work, checkpoints) | background-start | longrun | — |
+| `mod-longrun` (background work, checkpoints, resume; F7) | background-start, crew-spawn | longrun | — |
+| `mod-comms-live` (call pacing, narration, evaluation replies; F6) | call-start | call, evaluate | what do you think, good idea, status |
+| `mod-crew` (briefing sub-agents, spot-checking their reports; F2) | crew-spawn, board-read | delegate | — |
 | `mod-style-long` (formats, long-form voice) | — | writing | draft, write up |
 | `mod-<connector>` (per-connector quirks) | that connector's tools | — | — |
 
@@ -120,6 +148,10 @@ in `05-gates-library.md`.
 | "never store secrets" | pattern scan on every memory/file/outbound write | SECRET-SCAN |
 | "don't re-send when unsure" | idempotency ledger + state check before retry | UNKNOWN-OUTCOME |
 | "a job that ran isn't a job that worked" | job check requires output-artifact evidence | TRANSPORT-VS-JOB |
+| the job-failure classification rules (a large share of the 144 KB, per pack F5) | script over run history | JOB-TRIAGE-CLASSIFY |
+| "check the relay is running" | session-start and hourly worker check | STARTUP-ALIVE |
+| "long jobs must be resumable" | background start refused without a checkpoint | CHECKPOINT-REQUIRED |
+| "add the lesson to the rules" | lesson lands in a check, eval task, or budgeted module line | lessons pipeline (`02` §2.8) |
 | "inspect media before publishing" | publish tool requires an inspection record for the file hash | ARTIFACT-AS-PUBLISHED |
 | "keep context lean" | CI: kernel ≤ 10 KB, module ≤ 6 KB, live memory ≤ 6 KB | (CI) |
 | "every job has owner, purpose, stop condition" | job-registry lint | (CI) |
